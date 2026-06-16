@@ -1,7 +1,7 @@
-const globalConfig = require('../config.json');
-const GuildConfig = require('../models/GuildConfig.js');
+const globalConfig = require('../config.json')
+const GuildConfig = require('../models/GuildConfig.js')
 
-const ignoreKeys = ['developer_ids', 'whitelisted_servers']
+const ignoreKeys = globalConfig.ignore_values
 
 /**
  * Dynamically fetches settings for a server, falling back to global defaults if needed.
@@ -10,28 +10,28 @@ const ignoreKeys = ['developer_ids', 'whitelisted_servers']
  */
 async function getGuildSettings(guildId) {
     if (!guildId) {
-        const fallbacks = {};
+        const fallbacks = {}
         for (const [key, data] of Object.entries(globalConfig)) {
-            if (ignoreKeys.includes(key)) fallbacks[key] = data.value;
+            if (ignoreKeys.includes(key)) fallbacks[key] = data.value
         }
-        return fallbacks;
+        return fallbacks
     }
 
-    const serverSettings = await GuildConfig.findOne({ guildId });
+    const serverSettings = await GuildConfig.findOne({ guildId })
 
-    const activeConfig = {};
+    const activeConfig = {}
 
     for (let [key, data] of Object.entries(globalConfig)) {
-        if (ignoreKeys.includes(key)) continue
+        // if (ignoreKeys.includes(key)) continue
 
         if (data.valueType === 'channel' || data.valueType === 'role') key = key+'_id'
 
         activeConfig[key] = (serverSettings && serverSettings[key] !== undefined) 
             ? serverSettings[key] 
-            : data.value;
+            : data.value
     }
 
-    return activeConfig;
+    return activeConfig
 }
 
-module.exports = { getGuildSettings };
+module.exports = { getGuildSettings }

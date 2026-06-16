@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const config = require('../config.json')
 
-const ignoreKeys = ['developer_ids', 'whitelisted_servers']
+const ignoreKeys = config.ignore_values
 
 const schemaDefinition = {
     guildId: { 
@@ -12,7 +12,7 @@ const schemaDefinition = {
 }
 
 for (let [key, data] of Object.entries(config)) {
-    if (ignoreKeys.includes(key)) continue
+    // if (ignoreKeys.includes(key)) continue
 
     let nativeType
     if (data.valueType === 'boolean') nativeType = Boolean

@@ -10,7 +10,7 @@ let config = require(configPath)
 const emojis = require('../assets/emojis.json')
 const sendChannelLog = require('../utilities/channelLogger.js')
 
-const ignoreKeys = ['developer_ids', 'whitelisted_servers']
+const ignoreKeys = config.ignore_values
 
 module.exports = {
     data: new SlashCommandBuilder()

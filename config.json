@@ -2,6 +2,16 @@
 
     "developer_ids": ["950572259574157323"],
     "whitelisted_servers": ["1510727709473509426", "1440792579351515188"],
+    "ignore_values": [
+        "ignore_values",
+
+        "developer_ids", 
+        "whitelisted_servers", 
+
+        "server_word_chain_streak",
+        "server_word_chain_letter",
+        "server_word_chain_user_id"
+    ],
     
 
     
@@ -53,6 +63,31 @@
     },
 
 
+    
+    "server_word_chain_channel": {
+        "value": "none",
+        "valueType": "channel",
+        "displayType": "channel"
+    },
+    "word_chain_turn_based": {
+        "value": true,
+        "valueType": "boolean"
+    },
+    
+    "server_word_chain_streak": {
+        "value": 0,
+        "valueType": "string"
+    },
+    "server_word_chain_letter": {
+        "value": "a",
+        "valueType": "string"
+    },
+    "server_word_chain_user_id": {
+        "value": 0,
+        "valueType": "string"
+    },
+
+
 
     "server_log_channel": {
         "value": "none",
@@ -77,5 +112,7 @@
         "valueType": "channel",
         "displayType": "channel"
     }
+
+
 
 }
