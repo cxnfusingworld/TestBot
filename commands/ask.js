@@ -2,7 +2,7 @@ const { SlashCommandBuilder, InteractionContextType } = require('discord.js')
 const Groq = require('groq-sdk');
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-const cooldown = 10
+const cooldown = 5000
 
 let lastUsed = Date.now()
 
@@ -83,6 +83,8 @@ module.exports = {
             return
         }
         lastUsed = Date.now()
+
+        console.log(Date.now(), lastUsed, Date.now()-lastUsed)
 
         const question = interaction.options.getString('question')
         const user = interaction.user
