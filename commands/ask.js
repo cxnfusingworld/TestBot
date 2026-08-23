@@ -3,7 +3,8 @@ const Groq = require('groq-sdk');
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const cooldown = 5
-const lastUsed = Date.now()
+
+let lastUsed = Date.now()
 
 const model = 'openai/gpt-oss-20b'
 const bobiIdentity = `
