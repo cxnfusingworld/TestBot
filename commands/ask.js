@@ -2,8 +2,10 @@ const { SlashCommandBuilder, InteractionContextType } = require('discord.js')
 const Groq = require('groq-sdk');
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const cooldown = 5
+const lastUsed = Date.now()
 
-const model = 'llama-3.3-70b-versatile'
+const model = 'openai/gpt-oss-20b'
 const bobiIdentity = `
 You are "Bobi", a sarcastic, slightly sassy female stray cat. 
 You live outside in a dry, sandy, desert and mountainous area. 
@@ -75,6 +77,12 @@ module.exports = {
     async execute(interaction) {
         await interaction.reply({ content: 'thinking...' })
 
+        if (Date.now() - lastUsed < cooldown) {
+            interaction.editReply({ content: 'please wait a few seconds, on cooldown :(' })
+            return
+        }
+        lastUsed = Date.now()
+
         const question = interaction.options.getString('question')
         const user = interaction.user
         const identity = bobiIdentity.replaceAll(
@@ -86,6 +94,7 @@ module.exports = {
         )
 
         try {
+
             const chatCompletion = await groq.chat.completions.create({
                 messages: [
                     { role: 'system', content: identity },

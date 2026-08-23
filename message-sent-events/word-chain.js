@@ -45,6 +45,20 @@ module.exports = async function (message) {
 
         if (!isOneWord || !onlyLetters) return
 
+        if (content.length === 1) {
+            const component = new ComponentBuilder()
+                .setColor(Colors.Red)
+
+                .addText(`# ${emojis.no} Current Streak: ${currentStreak}`)
+                .addDivider()
+                .addText(`words must be longer than one letter`)
+                .addText(`### next word must still start with \`${currentLetter.toUpperCase()}\``)
+
+                .build()
+
+            await message.channel.send(component)
+        }
+
         if (lastUserId === currentUserId && isTurnBased) {
             const component = new ComponentBuilder()
                 .setColor(Colors.Orange)
